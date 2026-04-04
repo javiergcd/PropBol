@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import { prisma } from '../../lib/prisma.js'
+=======
 import { prisma } from '../../db'
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 type SupportedNotificationFilter = 'todas' | 'leida' | 'no leida'
 
@@ -34,12 +38,15 @@ type SoftDeleteNotificationParams = {
   id: number
   usuarioId: number
 }
+<<<<<<< HEAD
+=======
 
 type CreateNotificationParams = {
   usuarioId: number
   titulo: string
   mensaje: string
 }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 const buildWhereClause = ({
   usuarioId,
@@ -115,6 +122,8 @@ export const findNotificationByIdRepository = async ({
     }
   })
 }
+<<<<<<< HEAD
+=======
 
 export const createNotificationRepository = async ({
   usuarioId,
@@ -133,6 +142,7 @@ export const createNotificationRepository = async ({
     }
   })
 }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 export const markNotificationAsReadRepository = async ({
   id,

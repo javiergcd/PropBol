@@ -82,8 +82,13 @@ export default function NotificationsPage() {
 
       <div className="mb-5 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
+<<<<<<< HEAD
+          <h1 className="text-2xl font-bold text-stone-900">Todas las notificaciones</h1>
+          <p className="text-sm text-stone-500">
+=======
           <h1 className="text-xl font-bold text-stone-900 sm:text-2xl">Todas las notificaciones</h1>
           <p className="mt-0.5 text-sm text-stone-500">
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
             Aquí puedes revisar, marcar como leídas y eliminar tus notificaciones.
           </p>
         </div>
@@ -146,6 +151,18 @@ export default function NotificationsPage() {
                 role="listitem"
                 tabIndex={0}
                 aria-label={`Notificación: ${notification.title}`}
+<<<<<<< HEAD
+                className={`border-b border-stone-100 px-4 py-4 last:border-b-0 transition ${
+                  notification.status === 'no leida' ? 'bg-amber-50' : 'bg-white hover:bg-stone-50'
+                }`}
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <h2 className="text-sm font-semibold text-stone-900">
+                    {notification.title?.trim() || '(Sin título)'}
+                  </h2>
+                  <span
+                    className={`text-[10px] font-medium uppercase tracking-wide ${
+=======
                 className={`border-b border-stone-100 px-3 py-4 last:border-b-0 transition sm:px-4 ${
                   notification.status === 'no leida' ? 'bg-amber-50' : 'bg-white hover:bg-stone-50'
                 }`}
@@ -157,6 +174,7 @@ export default function NotificationsPage() {
                   </h2>
                   <span
                     className={`shrink-0 text-[10px] font-medium uppercase tracking-wide ${
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
                       notification.status === 'no leida' ? 'text-amber-600' : 'text-stone-400'
                     }`}
                   >

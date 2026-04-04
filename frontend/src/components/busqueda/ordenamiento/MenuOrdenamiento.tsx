@@ -11,6 +11,11 @@ import {
   ORDENAMIENTO_DEFAULT
 } from '../../../types/inmueble'
 
+<<<<<<< HEAD
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+=======
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 interface MenuOrdenamientoProps {
   ordenActual?: EstadoOrdenamiento
   onOrdenChange?: (orden: EstadoOrdenamiento) => void
@@ -38,7 +43,13 @@ interface SeccionMetricaProps {
   isActive: boolean
 }
 
+<<<<<<< HEAD
+// ─── Dropdown Base ────────────────────────────────────────────────────────────
+
+function Dropdown({ label, isOpen, onToggle, children }: DropdownProps) {
+=======
 function Dropdown({ label, isOpen, onToggle, disabled = false, children }: DropdownProps) {
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
   return (
     <div className="relative">
       <button
@@ -61,7 +72,11 @@ function Dropdown({ label, isOpen, onToggle, disabled = false, children }: Dropd
         />
       </button>
 
+<<<<<<< HEAD
+      {isOpen && (
+=======
       {isOpen && !disabled && (
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
         <div
           className="absolute left-0 top-full mt-1.5 z-50 bg-white rounded-lg shadow-lg
                      border border-gray-100 min-w-[120px] py-1
@@ -74,6 +89,11 @@ function Dropdown({ label, isOpen, onToggle, disabled = false, children }: Dropd
   )
 }
 
+<<<<<<< HEAD
+// ─── Dropdown Item ────────────────────────────────────────────────────────────
+
+=======
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 function DropdownItem({ label, isSelected, onClick }: DropdownItemProps) {
   return (
     <button
@@ -91,7 +111,13 @@ function DropdownItem({ label, isSelected, onClick }: DropdownItemProps) {
   )
 }
 
+<<<<<<< HEAD
+// ─── Sección de Métrica (Precio/Superficie) ───────────────────────────────────
+
+function SeccionMetrica({ titulo, valor, onChange }: SeccionMetricaProps) {
+=======
 function SeccionMetrica({ titulo, valor, onChange, isActive }: SeccionMetricaProps) {
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
   return (
     <div className="px-3 py-2">
       <p
@@ -123,6 +149,11 @@ function SeccionMetrica({ titulo, valor, onChange, isActive }: SeccionMetricaPro
   )
 }
 
+<<<<<<< HEAD
+// ─── Menu Principal de Ordenamiento ───────────────────────────────────────────
+
+=======
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 export function MenuOrdenamiento({
   ordenActual = ORDENAMIENTO_DEFAULT,
   onOrdenChange,
@@ -132,9 +163,13 @@ export function MenuOrdenamiento({
   const [dropdownAbierto, setDropdownAbierto] = useState<'fecha' | 'metricas' | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
+<<<<<<< HEAD
+  // Cerrar al hacer clic fuera
+=======
   // criterioActivo viene DENTRO de orden ahora — es la fuente de verdad única
   const criterioActivo: CriterioActivo = orden.criterioActivo
 
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -145,16 +180,36 @@ export function MenuOrdenamiento({
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
+<<<<<<< HEAD
+  // Toggle dropdown
+=======
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
   function toggleDropdown(dropdown: 'fecha' | 'metricas') {
     setDropdownAbierto((prev) => (prev === dropdown ? null : dropdown))
   }
 
+<<<<<<< HEAD
+  // Actualizar estado de ordenamiento
+  function actualizarOrden(parcial: Partial<EstadoOrdenamiento>) {
+=======
   function aplicar(parcial: Partial<EstadoOrdenamiento>) {
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
     const nuevoOrden: EstadoOrdenamiento = { ...orden, ...parcial }
     setOrden(nuevoOrden)
     onOrdenChange?.(nuevoOrden)
   }
 
+<<<<<<< HEAD
+  // Labels activos
+  const labelFechaActivo =
+    OPCIONES_FECHA.find((o) => o.value === orden.fecha)?.label ?? 'Más recientes'
+
+  const labelPrecioActivo =
+    OPCIONES_DIRECCION.find((o) => o.value === orden.precio)?.label ?? 'Menor a Mayor'
+
+  const labelSuperficieActivo =
+    OPCIONES_DIRECCION.find((o) => o.value === orden.superficie)?.label ?? 'Menor a Mayor'
+=======
   // ── Seleccionar FECHA ──────────────────────────────────────────────────────
   function seleccionarFecha(valor: EstadoOrdenamiento['fecha']) {
     aplicar({
@@ -200,6 +255,7 @@ export function MenuOrdenamiento({
   // ── Opacidad según criterio activo ────────────────────────────────────────
   const fechaApagada = criterioActivo === 'precio' || criterioActivo === 'superficie'
   const metricasApagada = criterioActivo === 'fecha'
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
   return (
     <div ref={menuRef} className="flex flex-col gap-4 mb-6">
@@ -213,14 +269,22 @@ export function MenuOrdenamiento({
         </h2>
       </div>
 
+<<<<<<< HEAD
+      {/* Sección de ordenamiento */}
+=======
       {/* Ordenamiento */}
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-2">
           <ArrowUpDown className="w-4 h-4 text-gray-400" strokeWidth={2} />
           <span className="text-sm font-semibold text-gray-600">Ordenar por:</span>
         </div>
 
+<<<<<<< HEAD
+        <div className="flex flex-wrap gap-4">
+=======
         <div className="flex flex-row gap-4">
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
           {/* Dropdown Fecha */}
           <div
             className={`flex flex-col gap-1.5 transition-opacity duration-200
@@ -244,11 +308,16 @@ export function MenuOrdenamiento({
             </Dropdown>
           </div>
 
+<<<<<<< HEAD
+          {/* Dropdown Métricas (Precio + Superficie) */}
+          <div className="flex flex-col gap-1.5">
+=======
           {/* Dropdown Métricas */}
           <div
             className={`flex flex-col gap-1.5 transition-opacity duration-200
             ${metricasApagada ? 'opacity-40 pointer-events-none' : ''}`}
           >
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
             <span className="text-xs text-gray-400 font-medium">Métricas:</span>
             <Dropdown
               label={labelMetricas}

@@ -15,6 +15,9 @@ type LoginResponse = {
   }
 }
 
+<<<<<<< HEAD
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000'
+=======
 type GooglePopupSuccessMessage = {
   type: 'propbol:google-login-success'
   message: string
@@ -92,10 +95,21 @@ const getRequestErrorMessage = (error: unknown) => {
 
   return SERVER_CONNECTION_MESSAGE
 }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 export default function LoginForm() {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
+<<<<<<< HEAD
+
+  const [correo, setCorreo] = useState('')
+  const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState<{ correo?: string; password?: string }>({})
+  const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+=======
   const [isLoadingGoogle, setIsLoadingGoogle] = useState(false)
   const [correo, setCorreo] = useState('')
   const [password, setPassword] = useState('')
@@ -105,6 +119,7 @@ export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [googleError, setGoogleError] = useState('')
 
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
   const isFormValid = correo.length > 0 && password.length > 0 && !errors.correo && !errors.password
 
   const validate = (field: string, value: string) => {
@@ -132,6 +147,8 @@ export default function LoginForm() {
 
     setErrors(newErrors)
   }
+<<<<<<< HEAD
+=======
 
   const handleGoogleLogin = () => {
     setGoogleError('')
@@ -245,6 +262,7 @@ export default function LoginForm() {
 
     window.addEventListener('message', handleMessage)
   }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -267,6 +285,23 @@ export default function LoginForm() {
     setErrors(newErrors)
     setErrorMessage('')
     setSuccessMessage('')
+<<<<<<< HEAD
+
+    if (Object.keys(newErrors).length > 0) return
+
+    setIsLoading(true)
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          correo: trimmedCorreo,
+          password: trimmedPassword
+        })
+=======
     setGoogleError('')
 
     if (Object.keys(newErrors).length > 0) {
@@ -295,12 +330,15 @@ export default function LoginForm() {
           password: trimmedPassword
         }),
         signal: controller.signal
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
       })
 
       const data: LoginResponse = await response.json()
 
       if (!response.ok) {
         setPassword('')
+<<<<<<< HEAD
+=======
 
         if (response.status === 404) {
           setErrorMessage(
@@ -309,11 +347,43 @@ export default function LoginForm() {
           return
         }
 
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
         setErrorMessage(data.message || 'Error al iniciar sesión')
         return
       }
 
       if (data.token) {
+<<<<<<< HEAD
+        localStorage.setItem('token', data.token)
+      }
+
+      const userName =
+        data.user?.nombre && data.user?.apellido
+          ? `${data.user.nombre} ${data.user.apellido}`
+          : (data.user?.correo ?? trimmedCorreo)
+
+      localStorage.setItem(
+        'propbol_user',
+        JSON.stringify({
+          name: userName,
+          email: data.user?.correo ?? trimmedCorreo
+        })
+      )
+      localStorage.setItem('propbol_session_expires', String(Date.now() + 60 * 60 * 1000))
+
+      setSuccessMessage(data.message || 'Inicio de sesión exitoso')
+
+      window.dispatchEvent(new Event('propbol:login'))
+      window.dispatchEvent(new Event('propbol:session-changed'))
+
+      setTimeout(() => {
+        router.push('/')
+      }, 1000)
+    } catch {
+      setPassword('')
+      setErrorMessage('No se pudo conectar con el servidor')
+    } finally {
+=======
         saveSession(data.token, data.user)
       }
 
@@ -327,6 +397,7 @@ export default function LoginForm() {
       setErrorMessage(getRequestErrorMessage(error))
     } finally {
       window.clearTimeout(timeoutId)
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
       setIsLoading(false)
     }
   }

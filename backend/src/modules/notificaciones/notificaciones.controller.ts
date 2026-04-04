@@ -18,12 +18,15 @@ type AuthenticatedRequest = Request & {
 type NotificationParams = {
   id: string
 }
+<<<<<<< HEAD
+=======
 
 type CreateNotificationBody = {
   usuarioId?: number | string
   titulo?: string
   mensaje?: string
 }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 const getUserIdFromRequest = (req: AuthenticatedRequest) => {
   const userId = Number(req.user?.id)
@@ -109,6 +112,8 @@ export const getUnreadCountController = async (req: Request, res: Response) => {
     })
   }
 }
+<<<<<<< HEAD
+=======
 
 export const createNotificationController = async (
   req: Request<unknown, unknown, CreateNotificationBody>,
@@ -141,6 +146,7 @@ export const createNotificationController = async (
     })
   }
 }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 export const markNotificationAsReadController = async (
   req: Request<NotificationParams>,

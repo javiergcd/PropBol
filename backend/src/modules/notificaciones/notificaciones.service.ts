@@ -8,8 +8,11 @@ import {
   markNotificationAsReadRepository,
   softDeleteNotificationRepository
 } from '../notificaciones/notificaciones.repository.js'
+<<<<<<< HEAD
+=======
 import { findUserById } from '../auth/auth.repository.js'
 import { sendNotificationEmail } from '../email/notification-email.service.js'
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 type NotificationFilter = 'todas' | 'leida' | 'no leida' | 'archivada'
 type SupportedNotificationFilter = Exclude<NotificationFilter, 'archivada'>
@@ -20,12 +23,15 @@ type GetNotificationsParams = {
   offset?: number
 }
 
+<<<<<<< HEAD
+=======
 type CreateNotificationParams = {
   usuarioId: number
   titulo: string
   mensaje: string
 }
 
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 const DEFAULT_LIMIT = 20
 const MAX_LIMIT = 100
 const DEFAULT_OFFSET = 0
@@ -68,12 +74,15 @@ const validateNotificationId = (id: number) => {
     throw new ServiceError('El id de la notificación no es válido', 400)
   }
 }
+<<<<<<< HEAD
+=======
 
 const validateUserId = (usuarioId: number) => {
   if (!Number.isInteger(usuarioId) || usuarioId <= 0) {
     throw new ServiceError('El usuario no es válido', 400)
   }
 }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 const mapNotificationToFrontend = (notification: {
   id: number
@@ -138,6 +147,8 @@ export const getUnreadCountService = async (usuarioId: number) => {
   }
 }
 
+<<<<<<< HEAD
+=======
 export const createNotificationService = async ({
   usuarioId,
   titulo,
@@ -183,6 +194,7 @@ export const createNotificationService = async ({
   }
 }
 
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 export const markNotificationAsReadService = async (id: number, usuarioId: number) => {
   validateNotificationId(id)
 

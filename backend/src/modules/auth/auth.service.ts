@@ -1,16 +1,23 @@
+<<<<<<< HEAD
+=======
 import crypto from 'node:crypto'
 import jwt from 'jsonwebtoken'
 
 import { env } from '../../config/env.js'
 import { enviarCodigoRegistro } from '../../lib/email.service.js'
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 import { generateToken, type JwtPayload } from '../../utils/jwt.js'
 import {
   createSession,
   createUser,
   desactiveSessionByToken,
   findActiveSessionByToken,
+<<<<<<< HEAD
+  findUser
+=======
   findUser,
   findUserByCorreo
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 } from './auth.repository.js'
 
 type LoginDTO = {
@@ -26,6 +33,8 @@ type RegisterDTO = {
   confirmPassword: string
   telefono?: string
 }
+<<<<<<< HEAD
+=======
 
 type VerifyRegisterCodeDTO = {
   verificationToken: string
@@ -42,6 +51,7 @@ type PendingRegisterPayload = {
   nonce: string
   codeSignature: string
 }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 type LoginAttemptState = {
   failedAttempts: number
@@ -65,6 +75,9 @@ const MAX_APELLIDO = 30
 const MAX_LOGIN_ATTEMPTS = 5
 const LOGIN_BLOCK_TIME_MS = 15 * 60 * 1000
 
+<<<<<<< HEAD
+const loginAttempts = new Map<string, LoginAttemptState>()
+=======
 const REGISTER_CODE_TTL_MINUTES = 5
 const REGISTER_CODE_TTL_SECONDS = REGISTER_CODE_TTL_MINUTES * 60
 
@@ -82,6 +95,7 @@ const isDuplicateEmailError = (error: unknown) => {
     (normalized.includes('unique constraint failed') && normalized.includes('correo'))
   )
 }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 const getAttemptState = (correo: string): LoginAttemptState => {
   const existingState = loginAttempts.get(correo)
@@ -155,6 +169,16 @@ const clearFailedAttempts = (correo: string) => {
   loginAttempts.delete(correo)
 }
 
+<<<<<<< HEAD
+export const loginService = async (payload: LoginDTO) => {
+  const correo = payload.correo?.trim().toLowerCase()
+  const password = payload.password?.trim()
+
+  if (!correo || !password) {
+    throw new Error('Correo y contraseña son obligatorios')
+  }
+
+=======
 const normalizeRegisterPayload = (payload: RegisterDTO) => {
   const nombre = payload.nombre?.trim()
   const apellido = payload.apellido?.trim()
@@ -246,6 +270,7 @@ export const loginService = async (payload: LoginDTO) => {
     throw new Error('Correo y contraseña son obligatorios')
   }
 
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
   const blockStatus = getBlockStatus(correo)
 
   if (blockStatus.blocked) {
@@ -313,6 +338,38 @@ export const loginService = async (payload: LoginDTO) => {
 }
 
 export const registerUser = async (payload: RegisterDTO) => {
+<<<<<<< HEAD
+  const nombre = payload.nombre?.trim()
+  const apellido = payload.apellido?.trim()
+  const correo = payload.correo?.trim().toLowerCase()
+  const password = payload.password?.trim()
+  const confirmPassword = payload.confirmPassword?.trim()
+  const telefono = payload.telefono?.trim() || undefined
+
+  if (!nombre || !apellido || !correo || !password || !confirmPassword) {
+    throw new Error('Todos los campos obligatorios deben ser completados')
+  }
+
+  if (nombre.length > MAX_NOMBRE) {
+    throw new Error(`El nombre no puede superar ${MAX_NOMBRE} caracteres`)
+  }
+
+  if (apellido.length > MAX_APELLIDO) {
+    throw new Error(`El apellido no puede superar ${MAX_APELLIDO} caracteres`)
+  }
+
+  if (password !== confirmPassword) {
+    throw new Error('Las contraseñas no coinciden')
+  }
+
+  const newUser = await createUser({
+    nombre,
+    apellido,
+    correo,
+    password,
+    telefono
+  })
+=======
   const normalized = normalizeRegisterPayload(payload)
 
   const existingUser = await findUserByCorreo(normalized.correo)
@@ -399,6 +456,7 @@ export const verifyRegisterCodeService = async (payload: VerifyRegisterCodeDTO) 
 
     throw error
   }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
   const jwtPayload: JwtPayload = {
     id: newUser.id,
@@ -457,6 +515,8 @@ export const logoutService = async (token: string) => {
     message: 'Logout exitoso'
   }
 }
+<<<<<<< HEAD
+=======
 
 type GoogleTokenResponse = {
   access_token?: string
@@ -553,3 +613,4 @@ export const loginWithGoogleCodeService = async (code: string) => {
     token
   }
 }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5

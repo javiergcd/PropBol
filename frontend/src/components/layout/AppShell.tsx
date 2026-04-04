@@ -1,6 +1,10 @@
 'use client'
 
+<<<<<<< HEAD
+import { usePathname, useRouter } from 'next/navigation'
+=======
 import { usePathname } from 'next/navigation'
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 import { useState, useCallback, useEffect } from 'react'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -16,9 +20,14 @@ const TOKEN_STORAGE_KEY = 'token'
 function SessionManager() {
   const [showWarning, setShowWarning] = useState(false)
 
+<<<<<<< HEAD
+  const handleWarning = useCallback(() => setShowWarning(true), [])
+  const handleLogout = useCallback(() => setShowWarning(false), [])
+=======
   const handleWarning = useCallback(() => {
     setShowWarning(true)
   }, [])
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
   const handleLogout = useCallback(() => {
     setShowWarning(false)
@@ -59,6 +68,10 @@ const clearSession = () => {
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const isAuthRoute = AUTH_ROUTES.includes(pathname)
+<<<<<<< HEAD
+  const router = useRouter()
+=======
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
   useEffect(() => {
     const validateSession = async () => {
@@ -106,6 +119,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           })
         )
 
+<<<<<<< HEAD
+        localStorage.setItem(SESSION_EXPIRES_KEY, String(Date.now() + 60 * 60 * 1000))
+
+=======
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
         window.dispatchEvent(new Event('propbol:session-changed'))
       } catch {
         clearSession()
@@ -114,7 +132,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     }
 
     validateSession()
+<<<<<<< HEAD
+  }, [pathname, router])
+=======
   }, [pathname, API_URL])
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
   if (isAuthRoute) {
     return <>{children}</>

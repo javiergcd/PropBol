@@ -3,6 +3,11 @@
 import { useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 
+<<<<<<< HEAD
+const INACTIVITY_LIMIT_MS = 15 * 60 * 1000
+const WARNING_BEFORE_MS = 1 * 60 * 1000
+
+=======
 const INACTIVITY_LIMIT_MS = 20 * 60 * 1000
 const WARNING_BEFORE_MS = 1 * 60 * 1000
 
@@ -10,6 +15,7 @@ const TOKEN_STORAGE_KEY = 'token'
 const USER_STORAGE_KEY = 'propbol_user'
 const SESSION_EXPIRES_KEY = 'propbol_session_expires'
 
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 const ACTIVITY_EVENTS = ['mousemove', 'keydown', 'mousedown', 'touchstart', 'scroll'] as const
 
 type UseInactivityLogoutOptions = {
@@ -23,6 +29,31 @@ export function useInactivityLogout({ onWarning, onLogout }: UseInactivityLogout
   const warningTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const clearTimers = useCallback(() => {
+<<<<<<< HEAD
+    if (logoutTimer.current) clearTimeout(logoutTimer.current)
+    if (warningTimer.current) clearTimeout(warningTimer.current)
+  }, [])
+
+  const logout = useCallback(async () => {
+    const token = localStorage.getItem('token')
+
+    if (token) {
+      try {
+        await fetch('/api/auth/logout', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}` }
+        })
+      } catch {}
+      localStorage.removeItem('token')
+    }
+
+    onLogout?.()
+    router.push('/sign-in')
+  }, [router, onLogout])
+
+  const resetTimers = useCallback(() => {
+    clearTimers()
+=======
     if (logoutTimer.current) {
       clearTimeout(logoutTimer.current)
       logoutTimer.current = null
@@ -59,6 +90,7 @@ export function useInactivityLogout({ onWarning, onLogout }: UseInactivityLogout
     clearTimers()
 
     localStorage.setItem(SESSION_EXPIRES_KEY, String(Date.now() + INACTIVITY_LIMIT_MS))
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
     warningTimer.current = setTimeout(() => {
       onWarning?.()
@@ -70,6 +102,19 @@ export function useInactivityLogout({ onWarning, onLogout }: UseInactivityLogout
   }, [clearTimers, logout, onWarning])
 
   useEffect(() => {
+<<<<<<< HEAD
+    resetTimers()
+
+    ACTIVITY_EVENTS.forEach((event) =>
+      window.addEventListener(event, resetTimers, { passive: true })
+    )
+
+    return () => {
+      clearTimers()
+      ACTIVITY_EVENTS.forEach((event) => window.removeEventListener(event, resetTimers))
+    }
+  }, [resetTimers, clearTimers])
+=======
     const token = localStorage.getItem(TOKEN_STORAGE_KEY)
 
     if (!token) return
@@ -115,4 +160,5 @@ export function useInactivityLogout({ onWarning, onLogout }: UseInactivityLogout
     resetInactivityTimer,
     logout
   }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 }

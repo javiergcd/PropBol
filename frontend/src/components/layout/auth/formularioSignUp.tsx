@@ -1,5 +1,12 @@
 'use client'
 
+<<<<<<< HEAD
+import { useEffect, useMemo, useState } from 'react'
+import { Eye, EyeOff, Mail, User, Phone, Lock, AlertCircle, Chrome } from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { validateEmail, validatePassword } from '@/lib/validators/auth'
+=======
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Eye, EyeOff, Mail, User, Phone, Lock, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
@@ -12,6 +19,7 @@ import {
   getMissingGoogleSignupFields,
   type GoogleSignupMissingField
 } from '@/lib/auth/google'
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 type FormData = {
   email: string
@@ -33,10 +41,19 @@ type FormErrors = {
 
 interface RegisterResponse {
   message: string
+<<<<<<< HEAD
+  token?: string
+  user?: {
+    nombre: string
+    apellido: string
+    correo: string
+  }
+=======
   verificationToken?: string
   email?: string
   requiresEmailVerification?: boolean
   expiresInMinutes?: number
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 }
 
 const MAX_NAME_LENGTH = 30
@@ -50,6 +67,8 @@ const initialFormData: FormData = {
   password: '',
   confirmPassword: ''
 }
+<<<<<<< HEAD
+=======
 
 function buildGoogleMissingFieldsMessage(missingFields: GoogleSignupMissingField[]) {
   if (missingFields.length === 0) {
@@ -82,6 +101,7 @@ function buildGoogleFieldErrors(
     lastName: missingFields.includes('lastName') ? 'Google no devolvió el apellido' : undefined
   }
 }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 function getInputClasses(hasError?: boolean, hasRightIcon?: boolean) {
   return [
@@ -135,6 +155,8 @@ export default function SignUpForm() {
       router.replace('/')
     }
   }, [router])
+<<<<<<< HEAD
+=======
 
   useEffect(() => {
     const googlePrefill = consumeGoogleSignupPrefill()
@@ -166,6 +188,7 @@ export default function SignUpForm() {
 
     setServerError(buildGoogleMissingFieldsMessage(missingFields))
   }, [])
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
   const validateFirstName = (value: string) => {
     const trimmed = value.trim()
@@ -415,8 +438,23 @@ export default function SignUpForm() {
         throw new Error(data?.message || 'No se pudo completar el registro')
       }
 
+<<<<<<< HEAD
+      if (data?.token) {
+        localStorage.setItem('token', data.token)
+      }
+
+      // Guardar usuario para que el Navbar lo detecte
+      if (data?.user) {
+        const userData = {
+          name: `${data.user.nombre} ${data.user.apellido}`,
+          email: data.user.correo
+        }
+        localStorage.setItem('propbol_user', JSON.stringify(userData))
+        localStorage.setItem('propbol_session_expires', String(Date.now() + 60 * 60 * 1000))
+=======
       if (!data?.verificationToken || !data?.email) {
         throw new Error('No se recibió la verificación del registro')
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
       }
 
       sessionStorage.setItem('pendingRegisterToken', data.verificationToken)
@@ -424,10 +462,18 @@ export default function SignUpForm() {
       sessionStorage.setItem('pendingRegisterEmail', data.email)
       sessionStorage.setItem(
         'register_success_message',
+<<<<<<< HEAD
+        data?.message || 'Usuario registrado correctamente'
+      )
+
+      window.dispatchEvent(new Event('propbol:login'))
+      router.replace('/')
+=======
         data.message || 'Te enviamos un código de verificación a tu correo.'
       )
 
       router.replace('/verify-email')
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
     } catch (error) {
       const message =
         error instanceof TypeError
@@ -442,6 +488,8 @@ export default function SignUpForm() {
       setIsSubmitting(false)
     }
   }
+<<<<<<< HEAD
+=======
 
   const handleGoogleCredential = useCallback((credential: string) => {
     setServerError('')
@@ -475,6 +523,7 @@ export default function SignUpForm() {
 
     setServerError(buildGoogleMissingFieldsMessage(missingFields))
   }, [])
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#f5f5f4] px-4 py-8">

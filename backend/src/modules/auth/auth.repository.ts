@@ -1,5 +1,10 @@
+<<<<<<< HEAD
+import { Prisma, RolNombre } from '@prisma/client'
+import { prisma } from '../../lib/prisma.js'
+=======
 import { RolNombre } from '@prisma/client'
 import { prisma } from '../../db'
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 interface CreateUserInput {
   nombre: string
@@ -7,6 +12,18 @@ interface CreateUserInput {
   correo: string
   password: string
   telefono?: string
+<<<<<<< HEAD
+}
+
+export const createUser = async (data: CreateUserInput) => {
+  const rol = await prisma.rol.findUnique({
+    where: { nombre: RolNombre.VISITANTE }
+  })
+
+  if (!rol) {
+    throw new Error('Rol de usuario no encontrado')
+  }
+=======
 }
 
 type PrismaLikeKnownError = {
@@ -48,6 +65,7 @@ const getUniqueConstraintMessage = (error: PrismaLikeKnownError) => {
 
 export const createUser = async (data: CreateUserInput) => {
   const rol = await ensureVisitorRole()
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
   try {
     return await prisma.usuario.create({
@@ -72,8 +90,13 @@ export const createUser = async (data: CreateUserInput) => {
       }
     })
   } catch (error) {
+<<<<<<< HEAD
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+      throw new Error('El correo ya está registrado')
+=======
     if (isUniqueConstraintError(error)) {
       throw new Error(getUniqueConstraintMessage(error))
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
     }
 
     throw error
@@ -125,10 +148,14 @@ export const findActiveSessionByToken = async (token: string) => {
     where: {
       token,
       estado: true,
+<<<<<<< HEAD
+      fechaExpiracion: { gt: new Date() }
+=======
 
       fechaExpiracion: {
         gt: new Date()
       }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
     },
     include: {
       usuario: {

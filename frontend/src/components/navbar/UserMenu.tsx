@@ -1,6 +1,10 @@
 import Link from 'next/link'
 import type { User } from '../layout/Navbar'
+<<<<<<< HEAD
+
+=======
 import { User as UserIcon, Eye, FileText, Map, ArrowLeftRight } from 'lucide-react'
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 type UserMenuProps = {
   user: User | null
   isPanelOpen: boolean
@@ -9,6 +13,8 @@ type UserMenuProps = {
   onLogin: () => void
   onOpenLogoutModal: () => void
 }
+<<<<<<< HEAD
+=======
 
 const MenuLink = ({
   label,
@@ -30,6 +36,7 @@ const MenuLink = ({
     {label}
   </Link>
 )
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 export default function UserMenu({
   user,

@@ -102,7 +102,6 @@ export default function PaginaRegistroInmueble() {
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
-
       <main className="max-w-6xl mx-auto p-8 md:p-12">
         <h1 className="text-2xl font-bold mb-6 text-gray-950">Registro Inmueble</h1>
 

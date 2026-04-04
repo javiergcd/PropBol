@@ -3,7 +3,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+<<<<<<< HEAD
+import { Bell, CheckCheck, Loader2, Trash2, WifiOff } from 'lucide-react'
+=======
 import { Bell, CheckCheck, Loader2, Menu, Trash2, WifiOff, X } from 'lucide-react'
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 import Logo from '../navbar/Logo'
 import NavLinks from '../navbar/NavLinks'
@@ -31,7 +35,10 @@ export default function Navbar() {
   const [isPanelOpen, setIsPanelOpen] = useState(false)
   const [showLogoutModal, setShowLogoutModal] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+<<<<<<< HEAD
+=======
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
   const {
     open,
@@ -55,19 +62,28 @@ export default function Navbar() {
     setIsLoggedIn
   } = useNotifications()
 
+<<<<<<< HEAD
+  const clearSession = () => {
+=======
   const clearSession = (emitEvent = true) => {
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
     localStorage.removeItem(USER_STORAGE_KEY)
     localStorage.removeItem(SESSION_EXPIRES_KEY)
     localStorage.removeItem('token')
     setUser(null)
     setIsPanelOpen(false)
     setShowLogoutModal(false)
+<<<<<<< HEAD
+    window.dispatchEvent(new Event('propbol:session-changed'))
+    window.dispatchEvent(new Event('auth-state-changed'))
+=======
     setIsLoggedIn(false)
 
     if (emitEvent) {
       window.dispatchEvent(new Event('propbol:session-changed'))
       window.dispatchEvent(new Event('auth-state-changed'))
     }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
   }
 
   const isSessionExpired = () => {
@@ -79,23 +95,38 @@ export default function Navbar() {
   const restoreSession = () => {
     const savedUser = localStorage.getItem(USER_STORAGE_KEY)
     const expiresAt = localStorage.getItem(SESSION_EXPIRES_KEY)
+<<<<<<< HEAD
+
+    if (!savedUser || !expiresAt) {
+      clearSession()
+=======
     const token = localStorage.getItem('token')
 
     if (!savedUser || !expiresAt || !token) {
       clearSession(false)
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
       return
     }
 
     if (Date.now() > Number(expiresAt)) {
+<<<<<<< HEAD
+      clearSession()
+=======
       clearSession(false)
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
       return
     }
 
     try {
       setUser(JSON.parse(savedUser))
+<<<<<<< HEAD
+    } catch {
+      clearSession()
+=======
       setIsLoggedIn(true)
     } catch {
       clearSession(false)
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
     }
   }
 
@@ -165,10 +196,13 @@ export default function Navbar() {
 
     setIsPanelOpen((prev) => !prev)
   }
+<<<<<<< HEAD
+=======
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev)
   }
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
   const handleLoginRedirect = () => {
     router.push('/sign-in')
@@ -268,7 +302,13 @@ export default function Navbar() {
                     "
                   >
                     <div className="flex items-center justify-between border-b border-stone-100 px-4 py-3">
+<<<<<<< HEAD
+                      <h3 id="notifications-title" className="text-sm font-semibold text-stone-900">
+                        Notificaciones
+                      </h3>
+=======
                       <h3 className="text-sm font-semibold text-stone-900">Notificaciones</h3>
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
                       {isLoggedIn ? (
                         <button
@@ -385,7 +425,11 @@ export default function Navbar() {
                                 >
                                   <div className="flex items-start justify-between gap-3">
                                     <div className="min-w-0 flex-1">
+<<<<<<< HEAD
+                                      <p className="text-sm font-semibold text-stone-900">
+=======
                                       <p className="truncate text-sm font-semibold text-stone-900">
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
                                         {notification.title?.trim() || '(Sin título)'}
                                       </p>
 

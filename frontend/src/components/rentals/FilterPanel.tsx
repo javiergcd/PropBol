@@ -74,6 +74,28 @@ export default function FilterPanel() {
   const [sortType, setSortType] = useState<'name' | 'count'>('name')
   const [mobileTab, setMobileTab] = useState<'alquiler' | 'venta' | 'tipo'>('alquiler')
 
+<<<<<<< HEAD
+  const toggleGlobalSort = () => {
+    setGlobalSort((prev) => (prev === 'asc' ? 'desc' : 'asc'))
+  }
+
+  useEffect(() => {
+    const fetchFilters = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/filters')
+        const result = await response.json()
+        if (result.success) {
+          setRentalsData(result.data.rentals)
+          setSalesData(result.data.sales)
+          setTypesData(result.data.categories)
+        }
+      } catch (error) {
+        console.error('Error:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+=======
   const toggleGlobalSort = () => setGlobalSort((prev) => (prev === 'asc' ? 'desc' : 'asc'))
 
   const fetchFilters = async () => {
@@ -101,6 +123,7 @@ export default function FilterPanel() {
   }
 
   useEffect(() => {
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
     fetchFilters()
   }, [])
 
@@ -118,6 +141,15 @@ export default function FilterPanel() {
     )
   }
 
+<<<<<<< HEAD
+  return (
+    <aside className="w-full lg:w-80 bg-white p-8 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.06)] border border-gray-100 h-fit lg:sticky lg:top-20 shrink-0">
+      {/* CABECERA */}
+      <div className="flex items-center justify-between mb-6 border-b border-gray-800 pb-3">
+        <div className="flex items-center gap-2 text-gray-900">
+          <Filter size={20} className="text-orange-500" />
+          <h2 className="text-lg font-bold font-inter tracking-tight">Filtros</h2>
+=======
   if (hasError) {
     return (
       <div className="w-full lg:w-80 bg-white p-8 rounded-3xl lg:rounded-2xl border border-gray-100 shadow-sm lg:shadow-[0_10px_40px_rgba(0,0,0,0.06)] mb-8 lg:sticky lg:top-20 shrink-0 flex flex-col items-center justify-center text-center gap-4">
@@ -137,6 +169,7 @@ export default function FilterPanel() {
             <path d="m2 2 20 20" />
             <path d="M22.61 16.95A5 5 0 0 0 18 10h-1.26a8 8 0 0 0-7.05-6M5 5a8 8 0 0 0 4 15h9a5 5 0 0 0 1.7-.3" />
           </svg>
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
         </div>
         <div>
           <h3 className="text-gray-900 font-bold font-inter text-base mb-1">Error de conexión</h3>
@@ -169,6 +202,23 @@ export default function FilterPanel() {
           strokeLinejoin="round"
           className="text-orange-500"
         >
+<<<<<<< HEAD
+          {globalSort === 'asc' ? 'Ordenar A↑' : 'Ordenar A↓'}
+        </button>
+      </div>
+
+      <div className="space-y-10">
+        <FilterSection
+          title="Alquileres"
+          data={rentalsData}
+          logic={rentalsLogic}
+          itemLabel="casas"
+        />
+        <FilterSection title="En venta" data={salesData} logic={salesLogic} itemLabel="casas" />
+        <FilterSection title="Inmuebles" data={typesData} logic={typesLogic} itemLabel="prop." />
+      </div>
+    </aside>
+=======
           <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
         </svg>
         <h2 className="text-lg font-bold font-inter tracking-tight">Filtros</h2>
@@ -275,5 +325,6 @@ export default function FilterPanel() {
         </div>
       </aside>
     </>
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
   )
 }

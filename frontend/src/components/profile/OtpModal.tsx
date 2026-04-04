@@ -1,4 +1,7 @@
+<<<<<<< HEAD
+=======
 // OtpModal.tsx (añadir prop isLoading)
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 'use client'
 
 import React, { useState, useEffect } from 'react'
@@ -9,8 +12,13 @@ interface OtpModalProps {
   onClose: () => void
   onSubmit: (otpCode: string) => void
   onResendCode: () => void
+<<<<<<< HEAD
+  // Permite inyectar errores desde el componente padre (ej. "Código incorrecto")
+  externalError?: string
+=======
   externalError?: string
   isLoading?: boolean
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 }
 
 export default function OtpModal({
@@ -18,15 +26,27 @@ export default function OtpModal({
   onClose,
   onSubmit,
   onResendCode,
+<<<<<<< HEAD
+  externalError
+}: OtpModalProps) {
+  const [otp, setOtp] = useState('')
+  const [localError, setLocalError] = useState('')
+  const [timeLeft, setTimeLeft] = useState(300) // 300 segundos = 5 minutos
+=======
   externalError,
   isLoading = false
 }: OtpModalProps) {
   const [otp, setOtp] = useState('')
   const [localError, setLocalError] = useState('')
   const [timeLeft, setTimeLeft] = useState(300)
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
   useEffect(() => {
     if (!isOpen) {
+<<<<<<< HEAD
+      // Reiniciamos todo si el modal se cierra
+=======
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
       setOtp('')
       setLocalError('')
       setTimeLeft(300)
@@ -67,7 +87,11 @@ export default function OtpModal({
   }
 
   const handleResend = () => {
+<<<<<<< HEAD
+    setTimeLeft(300) // Reiniciamos los 5 minutos
+=======
     setTimeLeft(300)
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
     setLocalError('')
     setOtp('')
     onResendCode()
@@ -78,8 +102,11 @@ export default function OtpModal({
       onClose()
     }
   }
+<<<<<<< HEAD
+=======
 
   const displayError = localError || externalError
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
   return (
     <div
@@ -116,7 +143,14 @@ export default function OtpModal({
             />
           </div>
 
+<<<<<<< HEAD
+          {/* Manejo de errores (locales o inyectados desde el backend) */}
+          {(localError || externalError) && (
+            <p className="text-red-500 text-xs mb-3 text-center">{localError || externalError}</p>
+          )}
+=======
           {displayError && <p className="text-red-500 text-xs mb-3 text-center">{displayError}</p>}
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
           <button
             type="button"
@@ -140,7 +174,11 @@ export default function OtpModal({
               type="submit"
               disabled={timeLeft === 0 || isLoading}
               className={`px-6 py-2 text-white rounded font-medium transition-colors ${
+<<<<<<< HEAD
+                timeLeft === 0
+=======
                 timeLeft === 0 || isLoading
+>>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
                   ? 'bg-stone-400 cursor-not-allowed'
                   : 'bg-amber-600 hover:bg-amber-700'
               }`}
