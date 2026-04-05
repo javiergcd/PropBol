@@ -1,10 +1,6 @@
 import Link from 'next/link'
 import type { User } from '../layout/Navbar'
-<<<<<<< HEAD
-
-=======
 import { User as UserIcon, Eye, FileText, Map, ArrowLeftRight } from 'lucide-react'
->>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 type UserMenuProps = {
   user: User | null
   isPanelOpen: boolean
@@ -13,8 +9,6 @@ type UserMenuProps = {
   onLogin: () => void
   onOpenLogoutModal: () => void
 }
-<<<<<<< HEAD
-=======
 
 const MenuLink = ({
   label,
@@ -36,7 +30,6 @@ const MenuLink = ({
     {label}
   </Link>
 )
->>>>>>> 12892ab53161466e83fa52424359eeccc35604a5
 
 export default function UserMenu({
   user,
@@ -82,16 +75,18 @@ export default function UserMenu({
 
         {user ? (
           <>
-            <div className="flex items-center gap-3 mb-4 px-1">
-              <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
-                {user.name.charAt(0).toUpperCase()}
-              </div>
-              <div className="flex flex-col">
-                <p className="font-bold text-gray-800 text-sm leading-tight">{user.name}</p>
-                <p className="text-xs text-gray-500">{user.email}</p>
-              </div>
-            </div>
+       <div className="flex justify-between items-start mb-4 px-1">
+        <div className="flex flex-col">
+          <span className="font-bold text-sm text-gray-900 mb-2"></span>
+        <p className="font-bold text-gray-800 text-sm leading-tight">{user.name}</p>
+         <p className="text-xs text-gray-500">{user.email}</p>
+          </div>
 
+        <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xl border border-gray-200 flex-shrink-0">
+             {user.name.charAt(0).toUpperCase()}
+        </div>
+        </div>
+    
             <Link
               href="/profile"
               className="flex justify-between items-center w-full text-black font-bold py-3 border-t border-b border-gray-200 hover:bg-black/5 px-2 mb-2 transition text-sm"
@@ -110,7 +105,7 @@ export default function UserMenu({
               />
               <MenuLink
                 label="Mis publicaciones"
-                href="mis-publicaciones"
+                href="/publicaciones"
                 icon={FileText}
                 onClick={onClosePanel}
               />
