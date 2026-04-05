@@ -9,28 +9,28 @@ interface BannerProps {
   subtitle?: string
 }
 
-const FALLBACK_BANNER = '/portada.webp' // Ruta a una imagen local de respaldo en caso de error
+const FALLBACK_BANNER = '/portada.webp'
 
 export const HomeBanner = ({ url, title, subtitle }: BannerProps) => {
   const [hasError, setHasError] = useState(false)
   const imageUrl = !url || hasError ? FALLBACK_BANNER : url
 
   return (
-    <div className="relative w-full h-[60vh] min-h-[300px] bg-slate-100 flex items-center justify-center">
+    // SE ENCOGIÓ EL BANNER AQUÍ: h-[40vh] min-h-[250px] max-h-[450px]
+    <div className="relative w-full h-[40vh] min-h-[250px] max-h-[450px] bg-slate-100 flex items-center justify-center overflow-hidden">
       <Image
         src={imageUrl}
         alt="Portada principal"
         fill
-        className="object-cover"
+        className="object-cover object-center"
         priority
         onError={() => setHasError(true)}
         unoptimized
       />
 
-      {/* Capa oscura para que el texto blanco siempre se lea bien */}
       <div className="absolute inset-0 bg-black/45 z-0" />
 
-      {/* Contenido centrado con anchos máximos para que no desborde en móvil */}
+      {/* Contenido centrado con anchos máximos */}
       <div className="relative z-10 text-center px-4 py-4 flex flex-col gap-2 md:gap-6 items-center">
         {title && (
           <h1 className="text-xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-xl max-w-[280px] md:max-w-none text-balance">
@@ -43,8 +43,8 @@ export const HomeBanner = ({ url, title, subtitle }: BannerProps) => {
             {subtitle}
           </p>
         )}
-        {/* INTEGRACIÓN: La Barra de Filtros centrada */}
       </div>
+      {/* ¡OJO! Borré todo lo que había aquí adentro para limpiar el desastre */}
       <div className="md:hidden relative z-20 -mt-10 px-4 w-full"></div>
     </div>
   )

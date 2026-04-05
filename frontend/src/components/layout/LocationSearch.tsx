@@ -159,8 +159,8 @@ export function LocationSearch({ value, onChange }: LocationSearchProps) {
             <Loader2 className="w-4 h-4 animate-spin text-amber-600" />
           ) : (
             value && (
-              <button 
-                onClick={() => onChange('')} 
+              <button
+                onClick={() => onChange('')}
                 type="button"
                 className="p-1 rounded-full hover:bg-stone-100 transition-colors focus:outline-none group"
                 aria-label="Limpiar"
@@ -221,7 +221,10 @@ export function LocationSearch({ value, onChange }: LocationSearchProps) {
                       <div className="flex items-center gap-3 min-w-0">
                         <Search className="w-4 h-4 text-stone-400 group-hover:text-amber-500 transition-colors flex-shrink-0" />
                         <span className="text-sm font-semibold text-stone-700 truncate min-w-0">
-                          {loc.nombre} <span className="font-normal text-stone-500">- {loc.departamento} - Bolivia</span>
+                          {loc.nombre}{' '}
+                          <span className="font-normal text-stone-500">
+                            - {loc.departamento} - Bolivia
+                          </span>
                         </span>
                       </div>
                       <Image
@@ -236,7 +239,9 @@ export function LocationSearch({ value, onChange }: LocationSearchProps) {
                 </div>
               ) : (
                 <div className="px-4 py-10 text-center bg-stone-50/50">
-                  <p className="text-sm text-stone-700 font-semibold">No se encontraron resultados</p>
+                  <p className="text-sm text-stone-700 font-semibold">
+                    No se encontraron resultados
+                  </p>
                   <p className="text-xs text-stone-500 mt-1">Pruebe con "Cala Cala"</p>
                 </div>
               )}
