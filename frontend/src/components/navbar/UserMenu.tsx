@@ -78,6 +78,8 @@ export default function UserMenu({
        <div className="flex justify-between items-start mb-4 px-1">
         <div className="flex flex-col">
           <span className="font-bold text-sm text-gray-900 mb-2"></span>
+          <span className="font-bold text-sm text-gray-900 mb-2"></span>
+          <span className="font-bold text-sm text-gray-900 mb-2"></span>
         <p className="font-bold text-gray-800 text-sm leading-tight">{user.name}</p>
          <p className="text-xs text-gray-500">{user.email}</p>
           </div>
