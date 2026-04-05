@@ -46,14 +46,22 @@ export default function UserMenu({
         className="p-2 text-gray-700 rounded-full hover:bg-black/5 hover:shadow-sm transition duration-200 focus:outline-none"
         aria-label="Menú de usuario"
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+        {user?.avatar ? (
+          <img
+            src={user.avatar}
+            alt={`${user.name} avatar`}
+            className="w-6 h-6 rounded-full object-cover"
           />
-        </svg>
+        ) : (
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            />
+          </svg>
+        )}
       </button>
 
       <div
@@ -76,8 +84,18 @@ export default function UserMenu({
         {user ? (
           <>
             <div className="flex items-center gap-3 mb-4 px-1">
-              <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
-                {user.name.charAt(0).toUpperCase()}
+              <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0 border border-gray-300">
+                {user.avatar ? (
+                  <img
+                    src={user.avatar}
+                    alt={`${user.name} avatar`}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="w-full h-full bg-gray-600 text-white font-bold flex items-center justify-center">
+                    {user.name.charAt(0).toUpperCase()}
+                  </span>
+                )}
               </div>
               <div className="flex flex-col">
                 <p className="font-bold text-gray-800 text-sm leading-tight">{user.name}</p>
@@ -103,7 +121,7 @@ export default function UserMenu({
               />
               <MenuLink
                 label="Mis publicaciones"
-                href="mis-publicaciones"
+                href="/publicaciones"
                 icon={FileText}
                 onClick={onClosePanel}
               />

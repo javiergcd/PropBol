@@ -102,7 +102,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           USER_STORAGE_KEY,
           JSON.stringify({
             name: userName,
-            email: data.user?.correo ?? ''
+            email: data.user?.correo ?? '',
+            avatar: data.user?.avatar ?? null
           })
         )
 

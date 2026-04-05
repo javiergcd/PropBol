@@ -15,6 +15,7 @@ import type { NotificationFilter } from '@/types/notification'
 export type User = {
   name: string
   email: string
+  avatar?: string | null
 }
 
 const USER_STORAGE_KEY = 'propbol_user'
