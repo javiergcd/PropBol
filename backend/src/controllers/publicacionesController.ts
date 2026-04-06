@@ -1,6 +1,5 @@
-import type { Request, Response } from 'express'
-import { prisma } from '../lib/prisma.config.js'
-
+import type { Request, Response } from "express";
+import { prisma } from "../lib/prisma.config.js";
 
 // Crear publicación
 export const crearPublicacion = async (req: Request, res: Response) => {

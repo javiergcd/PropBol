@@ -1,7 +1,5 @@
 import { prisma } from "../../lib/prisma.config.js";
 
-
-
 export class LocationsRepository {
   // Función auxiliar para generar variaciones con tildes (RegEx simple) --BitPro
   private normalizeQuery(query: string) {

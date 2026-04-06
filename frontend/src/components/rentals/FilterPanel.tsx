@@ -38,15 +38,14 @@ const FilterSection: React.FC<FilterSectionProps> = ({
             key={item.name}
             className="flex justify-between items-start gap-3 group cursor-pointer transition-all"
           >
-            <span 
+            <span
               className="text-gray-600 group-hover:text-gray-900 text-sm font-medium font-inter transition-all flex-1 min-w-0 truncate"
               title={formatName(item.name)}
             >
               {formatName(item.name)}
             </span>
             <span className="text-gray-500 text-sm font-medium font-inter text-right max-w-[60%] break-all leading-tight">
-              
-              {Number(item.count).toLocaleString('es-BO')} {itemLabel}
+              {Number(item.count).toLocaleString("es-BO")} {itemLabel}
             </span>
           </div>
         ))}

@@ -1,6 +1,9 @@
 // backend/src/modules/publicacion/publicacion.controller.ts
-import type { Response } from 'express'
-import { eliminarPublicacionService, listarMisPublicacionesService } from './publicacion.service.js'
+import type { Response } from "express";
+import {
+  eliminarPublicacionService,
+  listarMisPublicacionesService,
+} from "./publicacion.service.js";
 
 // Extiende Request para incluir el usuario autenticado
 import type { Request } from "express";
@@ -67,12 +70,10 @@ export const eliminarPublicacionController = async (
     if (error instanceof Error) {
       switch (error.message) {
         case "ID_INVALIDO":
-          return res
-            .status(400)
-            .json({
-              ok: false,
-              message: "El id de la publicación es inválido",
-            });
+          return res.status(400).json({
+            ok: false,
+            message: "El id de la publicación es inválido",
+          });
         case "USUARIO_INVALIDO":
           return res
             .status(401)
@@ -82,12 +83,10 @@ export const eliminarPublicacionController = async (
             .status(404)
             .json({ ok: false, message: "La publicación no existe" });
         case "NO_AUTORIZADO":
-          return res
-            .status(403)
-            .json({
-              ok: false,
-              message: "No puede eliminar publicaciones de otros usuarios",
-            });
+          return res.status(403).json({
+            ok: false,
+            message: "No puede eliminar publicaciones de otros usuarios",
+          });
         case "PUBLICACION_YA_ELIMINADA":
           return res
             .status(409)
