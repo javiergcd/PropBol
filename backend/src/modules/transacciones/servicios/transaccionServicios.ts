@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import { prisma } from "../../../lib/prisma.config.js";
+=======
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+>>>>>>> e566908 (actualizando lo que llego de develop)
 
 // Función auxiliar para redondear a 2 decimales
 function redondearADos(numero: number): number {
