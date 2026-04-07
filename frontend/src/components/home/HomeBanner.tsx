@@ -10,15 +10,13 @@ export const HomeBanner = ({ url, title, subtitle }: BannerProps) => {
   return (
     /* Contenedor con flex-col y centrado para el texto */
     <div className="relative w-full h-[60vh] min-h-[300px] bg-slate-100 flex flex-col items-center justify-center overflow-hidden">
-      
-      <Image 
-        src={url} 
-        alt="Portada principal" 
-        fill 
-        className="object-cover object-right" 
-        priority 
+      <Image
+        src={url}
+        alt="Portada principal"
+        fill
+        className="object-cover object-right"
+        priority
       />
-
 
       {/* CONTENIDO: Centrado horizontalmente (items-center) y con texto centrado (text-center) */}
       <div className="relative z-10 text-center px-4 py-4 flex flex-col gap-4 md:gap-6 items-center w-full">
@@ -36,8 +34,7 @@ export const HomeBanner = ({ url, title, subtitle }: BannerProps) => {
         )}
       </div>
 
-      <div className="md:hidden relative z-20 -mt-10 px-4 w-full flex justify-center">
-      </div>
+      <div className="md:hidden relative z-20 -mt-10 px-4 w-full flex justify-center"></div>
     </div>
   )
 }

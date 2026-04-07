@@ -27,24 +27,18 @@ export function LocationSearch({ value, onChange }: LocationSearchProps) {
   const { updateFilters } = useSearchFilters()
   const { registrarConsulta } = usePopularidad()
 
-  // FUNCIÓN MODULAR DE SELECCIÓN
   const handleSelectLocation = (loc: Location) => {
     const fullName = `${loc.nombre} - ${loc.departamento} - Bolivia`
-
-    // 1. "Avisamos" al sistema
     updateFilters({
       locationId: loc.id,
       query: fullName
     })
-
-    // 2. Lógica interna del componente
     onChange(fullName)
     saveToHistory(fullName)
     setIsOpen(false)
     registrarConsulta(loc.id, fullName)
   }
 
-  // Cargar historial al montar el componente
   useEffect(() => {
     const savedHistory = localStorage.getItem('searchHistory')
     if (savedHistory) {
@@ -52,21 +46,15 @@ export function LocationSearch({ value, onChange }: LocationSearchProps) {
     }
   }, [])
 
-  // Guardar en historial cuando se selecciona una ubicación
   const saveToHistory = (item: string) => {
     const updatedHistory = [item, ...history.filter((i) => i !== item)].slice(0, 5)
     setHistory(updatedHistory)
     localStorage.setItem('searchHistory', JSON.stringify(updatedHistory))
   }
 
-  // --- LÓGICA DE LIMPIEZA (HU 2) --- --BitPro
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value
-
-    // Filtro: Solo letras (incluye tildes y ñ), números, espacios y guiones.
-    // Todo lo demás (emojis, @, #, $, etc.) se elimina al instante.
     const cleanValue = rawValue.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\-]/gi, '')
-
     onChange(cleanValue)
   }
 
@@ -91,7 +79,6 @@ export function LocationSearch({ value, onChange }: LocationSearchProps) {
       setIsLoading(true)
       try {
         const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
-
         const res = await fetch(`${API_BASE}/api/locations/search?q=${encodeURIComponent(value)}`)
 
         if (res.ok) {
@@ -111,64 +98,62 @@ export function LocationSearch({ value, onChange }: LocationSearchProps) {
 
   return (
     <div className="w-full relative" ref={containerRef}>
-      <label className="block text-sm font-medium text-stone-700 mb-2 text-center uppercase tracking-wide font-montserrat">
+      <label className="block text-xs md:text-sm font-medium text-stone-700 mb-2 text-center uppercase tracking-wide font-montserrat">
         Ciudad / Zona
       </label>
 
+      {/* Contenedor de input con soporte para scroll horizontal si el texto es largo */}
       <div
-        className={`h-[46px] rounded-xl border transition-all flex items-center gap-3 px-4 bg-white shadow-sm ${
-          isOpen && suggestions.length > 0
+        className={`h-10 md:h-[46px] rounded-xl border transition-all flex items-center gap-2 md:gap-3 px-3 md:px-4 bg-white shadow-sm overflow-hidden ${
+          isOpen && (suggestions.length > 0 || (value.trim().length === 0 && history.length > 0))
             ? 'border-amber-600 ring-2 ring-amber-100'
             : 'border-stone-300'
         }`}
       >
         <MapPin
-          className={`w-5 h-5 flex-shrink-0 ${value ? 'text-amber-600' : 'text-stone-400'}`}
+          className={`w-4 h-4 md:w-5 md:h-5 flex-shrink-0 ${value ? 'text-amber-600' : 'text-stone-400'}`}
         />
 
-        <div className="relative flex-1 flex items-center h-full">
-          <div className="absolute inset-0 flex items-center pointer-events-none whitespace-pre text-sm font-inter">
-            <span className="opacity-0">{value}</span>
+        {/* Área deslizable para el texto del input */}
+        <div className="relative flex-1 flex items-center h-full overflow-x-auto scrollbar-hide">
+          <div className="flex items-center whitespace-nowrap text-xs md:text-sm font-inter">
+            <input
+              type="text"
+              value={value}
+              onChange={handleInputChange}
+              onFocus={() => setIsOpen(true)}
+              placeholder="Cochabamba, La Paz..."
+              className="bg-transparent outline-none text-stone-900 placeholder:text-stone-400 font-inter relative z-10 w-full min-w-[150px]"
+            />
             {isSelected && (
               <Image
                 src="https://flagcdn.com/w20/bo.png"
                 alt="BO"
-                width={20}
-                height={14}
+                width={18}
+                height={12}
                 className="ml-2 rounded-sm flex-shrink-0 mb-[1px]"
               />
             )}
           </div>
-
-          <input
-            type="text"
-            value={value}
-            onChange={handleInputChange}
-            onFocus={() => setIsOpen(true)} // Al hacer clic, abrimos el desplegable
-            placeholder="Cochabamba, La Paz..."
-            className="w-full bg-transparent outline-none text-sm text-stone-900 placeholder:text-stone-400 font-inter relative z-10"
-          />
         </div>
 
         {isLoading ? (
-          <Loader2 className="w-4 h-4 animate-spin text-amber-600" />
+          <Loader2 className="w-3.5 h-3.5 md:w-4 md:h-4 animate-spin text-amber-600 flex-shrink-0" />
         ) : (
           value && (
-            <button onClick={() => onChange('')} type="button">
-              <X className="w-4 h-4 text-stone-400 hover:text-red-500" />
+            <button onClick={() => onChange('')} type="button" className="p-0.5 flex-shrink-0">
+              <X className="w-3.5 h-3.5 md:w-4 md:h-4 text-stone-400 hover:text-red-500" />
             </button>
           )
         )}
       </div>
 
-      {/* PANEL DESPLEGABLE */}
       {isOpen && (
-        <div className="absolute z-[100] w-full mt-2 bg-white border border-stone-200 rounded-xl shadow-xl overflow-hidden">
-          {/* CASO A: MOSTRAR HISTORIAL (Input vacío) */}
+        <div className="absolute z-[100] w-full mt-2 bg-white border border-stone-200 rounded-xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-1">
           {value.trim().length === 0 && history.length > 0 && (
             <div>
               <div className="px-4 py-2 bg-stone-50 border-b border-stone-100">
-                <span className="text-[10px] uppercase font-bold text-stone-400 tracking-wider">
+                <span className="text-[9px] md:text-[10px] uppercase font-bold text-stone-400 tracking-wider">
                   Búsquedas recientes
                 </span>
               </div>
@@ -176,58 +161,62 @@ export function LocationSearch({ value, onChange }: LocationSearchProps) {
                 <button
                   key={`hist-${idx}`}
                   type="button"
-                  // Acción del botón
                   onClick={() => {
                     onChange(item)
                     setIsOpen(false)
-                    updateFilters({ query: item }) // Avisamos al sistema global
+                    updateFilters({ query: item })
                   }}
-                  className="w-full px-4 py-3 flex items-center gap-3 hover:bg-amber-50 transition-colors text-left border-b border-stone-50 last:border-0"
+                  className="w-full px-4 py-2.5 md:py-3 flex items-center gap-3 hover:bg-amber-50 active:bg-amber-100 transition-colors text-left border-b border-stone-50 last:border-0"
                 >
-                  <History className="w-3.5 h-3.5 text-stone-300" />
-                  <span className="text-sm text-stone-600">{item}</span>
+                  <History className="w-3.5 h-3.5 text-stone-300 flex-shrink-0" />
+                  <span className="text-xs md:text-sm text-stone-600 truncate">{item}</span>
                 </button>
               ))}
             </div>
           )}
 
-          {/* CASO B: MOSTRAR SUGERENCIAS (Escribiendo) */}
           {value.trim().length >= 2 && !isSelected && (
             <>
               {isLoading ? (
                 <div className="px-4 py-6 text-center flex flex-col items-center gap-2">
                   <Loader2 className="w-5 h-5 animate-spin text-amber-600" />
-                  <span className="text-sm text-stone-500 italic">Buscando zonas...</span>
+                  <span className="text-xs md:text-sm text-stone-500 italic font-inter">
+                    Buscando zonas...
+                  </span>
                 </div>
               ) : suggestions.length > 0 ? (
-                <div className="max-h-[300px] overflow-y-auto">
+                <div className="max-h-[60vh] md:max-h-[300px] overflow-y-auto">
                   {suggestions.slice(0, 5).map((loc) => (
                     <button
                       key={loc.id}
                       type="button"
                       onClick={() => handleSelectLocation(loc)}
-                      className="w-full px-4 py-3 flex items-center justify-between hover:bg-amber-50 transition-colors text-left border-b border-stone-50 last:border-0"
+                      className="w-full px-4 py-2.5 md:py-3 flex items-center justify-between hover:bg-amber-50 active:bg-amber-100 transition-colors text-left border-b border-stone-50 last:border-0"
                     >
-                      <div className="flex items-center gap-3">
-                        <Search className="w-3.5 h-3.5 text-stone-500" />
-                        <span className="text-sm font-bold text-stone-600">
+                      <div className="flex items-center gap-3 overflow-hidden">
+                        <Search className="w-3.5 h-3.5 text-stone-500 flex-shrink-0" />
+                        <span className="text-xs md:text-sm font-bold text-stone-600 truncate font-inter">
                           {loc.nombre} - {loc.departamento} - Bolivia
                         </span>
                       </div>
                       <Image
                         src="https://flagcdn.com/w20/bo.png"
                         alt="BO"
-                        width={20}
-                        height={14}
-                        className="rounded-sm"
+                        width={18}
+                        height={12}
+                        className="rounded-sm flex-shrink-0"
                       />
                     </button>
                   ))}
                 </div>
               ) : (
                 <div className="px-4 py-8 text-center bg-stone-50/50">
-                  <p className="text-sm text-stone-600 font-medium">No se encontraron resultados</p>
-                  <p className="text-xs text-stone-400 mt-1 italic">Pruebe con "Cala Cala"</p>
+                  <p className="text-xs md:text-sm text-stone-600 font-medium font-inter">
+                    No se encontraron resultados
+                  </p>
+                  <p className="text-[10px] md:text-xs text-stone-400 mt-1 italic font-inter">
+                    Pruebe con "Cala Cala"
+                  </p>
                 </div>
               )}
             </>
