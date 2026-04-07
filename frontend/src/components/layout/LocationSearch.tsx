@@ -29,16 +29,21 @@ export function LocationSearch({ value, onChange }: LocationSearchProps) {
 
   const handleSelectLocation = (loc: Location) => {
     const fullName = `${loc.nombre} - ${loc.departamento} - Bolivia`
+
+    // 1. "Avisamos" al sistema
     updateFilters({
       locationId: loc.id,
       query: fullName
     })
+
+    // 2. Lógica interna del componente
     onChange(fullName)
     saveToHistory(fullName)
     setIsOpen(false)
     registrarConsulta(loc.id, fullName)
   }
 
+  // Cargar historial al montar el componente
   useEffect(() => {
     const savedHistory = localStorage.getItem('searchHistory')
     if (savedHistory) {

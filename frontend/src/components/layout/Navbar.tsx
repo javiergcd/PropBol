@@ -20,7 +20,6 @@ export type User = {
 
 const USER_STORAGE_KEY = 'propbol_user'
 const SESSION_EXPIRES_KEY = 'propbol_session_expires'
-
 const filters: NotificationFilter[] = ['todas', 'leida', 'no leida']
 
 export default function Navbar() {
