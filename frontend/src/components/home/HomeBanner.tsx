@@ -8,32 +8,35 @@ interface BannerProps {
 
 export const HomeBanner = ({ url, title, subtitle }: BannerProps) => {
   return (
-    <div className="relative w-full h-[60vh] min-h-[300px] bg-slate-100 flex items-center justify-center">
-      <Image src={url} alt="Portada principal" fill className="object-cover" priority />
+    /* Contenedor con flex-col y centrado para el texto */
+    <div className="relative w-full h-[60vh] min-h-[300px] bg-slate-100 flex flex-col items-center justify-center overflow-hidden">
+      
+      <Image 
+        src={url} 
+        alt="Portada principal" 
+        fill 
+        className="object-cover object-right" 
+        priority 
+      />
 
-      {/* Capa oscura para que el texto blanco siempre se lea bien */}
-      <div className="absolute inset-0 bg-black/45 z-0" />
 
-      {/* Contenido centrado con anchos máximos para que no desborde en móvil */}
-      <div className="relative z-10 text-center px-4 py-4 flex flex-col gap-2 md:gap-6 items-center">
+      {/* CONTENIDO: Centrado horizontalmente (items-center) y con texto centrado (text-center) */}
+      <div className="relative z-10 text-center px-4 py-4 flex flex-col gap-4 md:gap-6 items-center w-full">
         {title && (
-          <h1 className="text-xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-xl max-w-[280px] md:max-w-none text-balance">
+          /* drop-shadow-xl ayuda a que el texto blanco se lea si la imagen es clara */
+          <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)] max-w-[90%] md:max-w-none text-balance mx-auto">
             {title}
           </h1>
         )}
 
         {subtitle && (
-          <p className="text-xs md:text-xl lg:text-2xl text-stone-200 drop-shadow-lg font-medium max-w-[240px] md:max-w-2xl text-balance">
+          <p className="text-sm md:text-xl lg:text-2xl text-stone-100 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] font-medium max-w-[85%] md:max-w-2xl text-balance mx-auto">
             {subtitle}
           </p>
         )}
-        {/* INTEGRACIÓN: La Barra de Filtros centrada */}
-        {/* Usamos un div envoltorio para asegurar el ancho máximo de 921px  */}
       </div>
-      {/* En móvil, mostramos la barra de filtros debajo del banner */}
-      {/* Versión móvil: La barra sale debajo en pantallas pequeñas para no tapar la foto */}
-      <div className="md:hidden relative z-20 -mt-10 px-4 w-full">
-        {/* Aquí podrías poner una versión simplificada o la misma FilterBar ajustada */}
+
+      <div className="md:hidden relative z-20 -mt-10 px-4 w-full flex justify-center">
       </div>
     </div>
   )
