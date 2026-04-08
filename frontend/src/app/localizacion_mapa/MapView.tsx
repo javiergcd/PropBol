@@ -41,3 +41,65 @@ function ChangeView({ center }: { center: [number, number] }) {
   map.setView(center, 20)
   return null
 }
+export default function MapView({ properties, selectedProperty, onSelect }) {
+  const center: [number, number] = [-17.39, -66.15]
+
+  const [userLocation, setUserLocation] = useState<[number, number] | null>(null)
+
+  // 📍 Obtener ubicación del usuario
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setUserLocation([pos.coords.latitude, pos.coords.longitude])
+      },
+      (err) => {
+        console.error('Error ubicación:', err)
+      }
+    )
+  }, [])
+
+  return (
+    <MapContainer center={center} zoom={13} style={{ height: '100vh' }}>
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+      {/* 🏠 Propiedades */}
+      <MarkerClusterGroup>
+        {properties
+          .filter(p => p.lat && p.lng)
+          .map((p) => (
+            <Marker
+              key={p.id} // ✅ IMPORTANTE
+              position={[p.lat, p.lng]}
+              icon={selectedProperty?.id === p.id ? selectedIcon : houseIcon}
+              eventHandlers={{
+                click: () => onSelect(p) // 👈 IMPORTANTE
+              }}
+            >
+              <Popup>
+                <strong>{p.titulo}</strong><br />
+                    {p.ubicacion}<br />
+                🏠 {p.tipo}<br />
+                💲 {p.precio}
+              </Popup>
+            </Marker>
+          ))}
+      </MarkerClusterGroup>
+
+      {/* 📍 Usuario */}
+      {userLocation && (
+        <>
+          <Marker position={userLocation} icon={userIcon}>
+            <Popup>📍 Tu ubicación</Popup>
+          </Marker>
+
+          <ChangeView center={userLocation} />
+        </>
+      )}
+
+      {/* 🎯 Selección */}
+      {selectedProperty && (
+        <ChangeView center={[selectedProperty.lat, selectedProperty.lng]} />
+      )}
+    </MapContainer>
+  )
+}
