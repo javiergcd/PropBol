@@ -3,7 +3,7 @@
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
-import L from "leaflet";
+import L, { LeafletEvent } from "leaflet";
 import { useMap } from "react-leaflet";
 import { useEffect, useState } from "react";
 

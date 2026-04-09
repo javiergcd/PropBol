@@ -19,8 +19,6 @@ import PropertyRow from "@/components/galeria/PropertyRow";
 import EmptyState from "@/components/galeria/EmptyState";
 import { MenuOrdenamiento } from "@/components/busqueda/ordenamiento/MenuOrdenamiento";
 
-import ContactButton from "../galeria/ContactButton";
-
 const MapView = nextDynamic(() => import("./MapView"), { ssr: false });
 
 // 🔥 distancia
@@ -74,7 +72,7 @@ function BusquedaMapaContent() {
 
   // 🔥 orden cercanía
   const propertiesOrdenadas =
-    ordenActual === "cercania" && userLocation
+    ordenActual === "cercania" as any && userLocation
       ? [...properties].sort((a, b) => {
           const d1 = getDistance(
             userLocation[0],
@@ -164,6 +162,7 @@ function BusquedaMapaContent() {
                           price={`${property.price}`}
                           size="150m²"
                           image="/images/inmuebleFoto.jpg"
+                          contactType="Facebook"
                         />
                       )}
                     </div>
