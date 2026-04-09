@@ -24,6 +24,7 @@ export default function PropertyCard({
   camas,
   banos,
   metros,
+
 }: PropsTarjeta) {
   return (
     <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300 border border-gray-100 group">

@@ -13,6 +13,7 @@ export default function PropertyRow({
   size: string;
   contactType: string;
   image: string;
+  showContactButton?: boolean;
 }) {
   return (
     <div className="grid grid-cols-[40px_70px_minmax(0,1fr)_50px] gap-2 px-3 py-2 items-center">
