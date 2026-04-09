@@ -24,7 +24,7 @@ const TYPE_ICONS: Record<PropertyMapPin["type"], string> = {
   casa: "/house.svg",
   departamento: "/department.svg",
   terreno: "/land.svg",
-  local: "/local.svg",
+  oficina: "/local.svg",
 };
 
 // ICONO NORMAL
